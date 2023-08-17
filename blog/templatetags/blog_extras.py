@@ -5,6 +5,7 @@ user_model = get_user_model()
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
+from blog.models import Post
 
 
 
@@ -34,3 +35,8 @@ def author_details(author, current_user=None):
         suffix = ""
 
     return mark_safe(f"{prefix}{name}{suffix}")
+
+@register.inclusion_tag("recent-posts-list.html")
+def recent_posts_list(post):
+    posts = Post.objects.exclude(pk=post.pk)[:5]
+    return {"title": "Recent Posts", "posts": posts}

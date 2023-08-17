@@ -1,0 +1,8 @@
+{% if posts|length > 1 %}
+<h6>{{ title }}</h6>
+<ul>
+{% for post in posts %}
+    <li><a href="{% url "blog-post-detail" post.slug %}">{{ post.title }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}
